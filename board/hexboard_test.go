@@ -14,7 +14,7 @@ import (
 func TestHexBoard(t *testing.T) {
 	assert := assert.New(t)
 
-	b := NewHexBoard("hello", 5)
+	b := NewHexBoard("HELLO", 5)
 	assert.Equal(b.Len(), 23,
 		"number of cells must be 23")
 

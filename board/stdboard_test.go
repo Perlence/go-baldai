@@ -14,7 +14,7 @@ import (
 func TestStdBoard(t *testing.T) {
 	assert := assert.New(t)
 
-	b := NewStdBoard("hello", 5)
+	b := NewStdBoard("HELLO", 5)
 	assert.Equal(b.Len(), 5*5,
 		"number of cells must be square of board size")
 

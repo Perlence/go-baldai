@@ -11,7 +11,7 @@ func TestDictionary(t *testing.T) {
 
 	dict := NewDictionary("./data/english.txt")
 
-	assert.True(dict.trie.Has([]byte("ABBOT")),
+	assert.True(dict.trie.Has("ABBOT"),
 		"trie must have 'ABBOT'")
 
 	assert.True(dict.StartsWith("ADVE*"),

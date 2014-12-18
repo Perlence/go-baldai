@@ -2,20 +2,19 @@ package baldai
 
 import (
 	"bufio"
-	"fmt"
-	"github.com/timtadh/data-structures/trie"
+	"github.com/fvbock/trie"
 	"os"
 	"strings"
 )
 
 type Dictionary struct {
 	letters []rune
-	trie    *trie.TST
+	trie    *trie.Trie
 }
 
 func NewDictionary(files ...string) *Dictionary {
 	var letters []rune
-	trie := new(trie.TST)
+	trie := trie.NewTrie()
 	for _, filename := range files {
 		// fp = codecs.open(filename)
 		// words += fp.read().splitlines()
@@ -29,7 +28,7 @@ func NewDictionary(files ...string) *Dictionary {
 		scanner := bufio.NewScanner(file)
 		for scanner.Scan() {
 			text := scanner.Text()
-			trie.Put([]byte(text), nil)
+			trie.Add(text)
 			for _, ch := range []rune(text) {
 				if !strings.ContainsRune(string(letters), ch) {
 					letters = append(letters, ch)
@@ -48,8 +47,7 @@ func NewDictionary(files ...string) *Dictionary {
 func (self *Dictionary) StartsWith(str string) bool {
 	for _, letter := range self.letters {
 		s := strings.Replace(str, "*", string(letter), -1)
-		iterator := self.trie.PrefixFind([]byte(s))
-		if k, v, next := iterator(); k != nil {
+		if self.trie.HasPrefix(s) {
 			return true
 		}
 	}
@@ -60,7 +58,7 @@ func (self *Dictionary) StartsWith(str string) bool {
 func (self *Dictionary) PossibleWords(str string) (words []string) {
 	for _, letter := range self.letters {
 		s := strings.Replace(str, "*", string(letter), -1)
-		if self.trie.Has([]byte(s)) {
+		if self.trie.Has(s) {
 			words = append(words, s)
 		}
 	}

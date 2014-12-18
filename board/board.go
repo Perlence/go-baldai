@@ -25,6 +25,16 @@ func IsOccupied(b Board, cell int) bool {
 	return b.Get(cell) != 0
 }
 
+// Check of all cells in given *seq* are occupied
+func AllOccupied(b Board, seq []int) bool {
+	for _, cell := range seq {
+		if !IsOccupied(b, cell) {
+			return false
+		}
+	}
+	return true
+}
+
 // Get only occupied adjacent cells
 func GetNeighbours(b Board, cell int) (neighbours []int) {
 	for _, cell := range b.GetAdjacent(cell) {
