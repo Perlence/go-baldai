@@ -1,7 +1,6 @@
-package board_test
+package board
 
 import (
-	"github.com/Perlence/go-baldai/board"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -15,19 +14,19 @@ import (
 func TestHexBoard(t *testing.T) {
 	assert := assert.New(t)
 
-	b := board.NewHexBoard("hello", 5)
+	b := NewHexBoard("hello", 5)
 	assert.Equal(b.Len(), 23,
 		"number of cells must be 23")
 
-	for i := range board.Cells(b)[:9] {
+	for i := range Cells(b)[:9] {
 		assert.Equal(b.Get(i), 0,
 			"first 10 cells must be unoccupied")
 	}
-	for i := range board.Cells(b)[9:14] {
+	for i := range Cells(b)[9:14] {
 		assert.NotEqual(b.Get(i+9), 0,
 			"cells from 9 to 14 must be occupied")
 	}
-	for i := range board.Cells(b)[14:] {
+	for i := range Cells(b)[14:] {
 		assert.Equal(b.Get(i+14), 0,
 			"rest cells must be unoccupied")
 	}

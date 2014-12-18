@@ -1,7 +1,6 @@
-package board_test
+package board
 
 import (
-	"github.com/Perlence/go-baldai/board"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -15,19 +14,19 @@ import (
 func TestStdBoard(t *testing.T) {
 	assert := assert.New(t)
 
-	b := board.NewStdBoard("hello", 5)
+	b := NewStdBoard("hello", 5)
 	assert.Equal(b.Len(), 5*5,
 		"number of cells must be square of board size")
 
-	for i := range board.Cells(b)[:10] {
+	for i := range Cells(b)[:10] {
 		assert.Equal(b.Get(i), 0,
 			"first 10 cells must be unoccupied")
 	}
-	for i := range board.Cells(b)[10:15] {
+	for i := range Cells(b)[10:15] {
 		assert.NotEqual(b.Get(i+10), 0,
 			"cells from 11 to 15 must be occupied")
 	}
-	for i := range board.Cells(b)[15:] {
+	for i := range Cells(b)[15:] {
 		assert.Equal(b.Get(i+15), 0,
 			"rest cells must be unoccupied")
 	}
