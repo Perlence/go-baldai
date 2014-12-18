@@ -5,45 +5,6 @@ import (
 	"strings"
 )
 
-type Board interface {
-	// Iterable containing all cells in linear order
-	Cells() []rune
-	// Get value of cell
-	Get(cell int) rune
-	// Set value of cell
-	Set(cell int, char rune)
-	// Get all adjacent cells
-	GetAdjacent(cell int) []int
-}
-
-func IsOccupied(b Board, cell int) bool {
-	return b.Get(cell) != 0
-}
-
-// Get only occupied adjacent cells
-func GetNeighbours(b Board, cell int) []int {
-	var result []int
-	for _, cell := range b.GetAdjacent(cell) {
-		if IsOccupied(b, cell) {
-			result = append(result, cell)
-		}
-	}
-	return result
-}
-
-// Get word from sequence of cells
-func GetWord(b Board, seq []int) string {
-	word := ""
-	for _, cell := range seq {
-		if b.Get(cell) > 0 {
-			word += string(b.Get(cell))
-		} else {
-			word += "*"
-		}
-	}
-	return word
-}
-
 type StdBoard struct {
 	size  int
 	cells []rune
@@ -62,8 +23,8 @@ func NewStdBoard(word string, size int) *StdBoard {
 	return &StdBoard{size, cells}
 }
 
-func (self *StdBoard) Cells() []rune {
-	return self.cells
+func (self *StdBoard) Len() int {
+	return len(self.cells)
 }
 
 func (self *StdBoard) Get(cell int) rune {
